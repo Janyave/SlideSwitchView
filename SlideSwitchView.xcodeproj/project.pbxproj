@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		691764A81BF9A88300C02175 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691764A61BF9A88300C02175 /* CustomViewController.m */; settings = {ASSET_TAGS = (); }; };
-		691764A91BF9A88300C02175 /* CustomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 691764A71BF9A88300C02175 /* CustomViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		6942813F1BF1EEDE005EA77A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6942813E1BF1EEDE005EA77A /* main.m */; };
 		694281421BF1EEDE005EA77A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281411BF1EEDE005EA77A /* AppDelegate.m */; };
 		694281451BF1EEDE005EA77A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281441BF1EEDE005EA77A /* ViewController.m */; };
@@ -17,7 +15,9 @@
 		6942814D1BF1EEDE005EA77A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6942814B1BF1EEDE005EA77A /* LaunchScreen.storyboard */; };
 		694281581BF1EEDE005EA77A /* SlideSwitchViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281571BF1EEDE005EA77A /* SlideSwitchViewTests.m */; };
 		694281631BF1EEDE005EA77A /* SlideSwitchViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281621BF1EEDE005EA77A /* SlideSwitchViewUITests.m */; };
-		694281721BF1EF54005EA77A /* SlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281711BF1EF54005EA77A /* SlideSwitchView.m */; settings = {ASSET_TAGS = (); }; };
+		694281721BF1EF54005EA77A /* SlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281711BF1EF54005EA77A /* SlideSwitchView.m */; };
+		69DE82511BFC47BF00DAA56B /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE82501BFC47BF00DAA56B /* CustomView.m */; };
+		69DE82531BFC47D600DAA56B /* CustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69DE82521BFC47D600DAA56B /* CustomView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,9 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		691764A51BF9A88300C02175 /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
-		691764A61BF9A88300C02175 /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
-		691764A71BF9A88300C02175 /* CustomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewController.xib; sourceTree = "<group>"; };
 		6942813A1BF1EEDE005EA77A /* SlideSwitchView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideSwitchView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6942813E1BF1EEDE005EA77A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		694281401BF1EEDE005EA77A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,6 +56,9 @@
 		694281641BF1EEDE005EA77A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		694281701BF1EF54005EA77A /* SlideSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideSwitchView.h; sourceTree = "<group>"; };
 		694281711BF1EF54005EA77A /* SlideSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideSwitchView.m; sourceTree = "<group>"; };
+		69DE824F1BFC47BF00DAA56B /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
+		69DE82501BFC47BF00DAA56B /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
+		69DE82521BFC47D600DAA56B /* CustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +120,9 @@
 				6942813D1BF1EEDE005EA77A /* Supporting Files */,
 				694281701BF1EF54005EA77A /* SlideSwitchView.h */,
 				694281711BF1EF54005EA77A /* SlideSwitchView.m */,
-				691764A51BF9A88300C02175 /* CustomViewController.h */,
-				691764A61BF9A88300C02175 /* CustomViewController.m */,
-				691764A71BF9A88300C02175 /* CustomViewController.xib */,
+				69DE824F1BFC47BF00DAA56B /* CustomView.h */,
+				69DE82501BFC47BF00DAA56B /* CustomView.m */,
+				69DE82521BFC47D600DAA56B /* CustomView.xib */,
 			);
 			path = SlideSwitchView;
 			sourceTree = "<group>";
@@ -260,9 +260,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6942814D1BF1EEDE005EA77A /* LaunchScreen.storyboard in Resources */,
+				69DE82531BFC47D600DAA56B /* CustomView.xib in Resources */,
 				6942814A1BF1EEDE005EA77A /* Assets.xcassets in Resources */,
 				694281481BF1EEDE005EA77A /* Main.storyboard in Resources */,
-				691764A91BF9A88300C02175 /* CustomViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,8 +287,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69DE82511BFC47BF00DAA56B /* CustomView.m in Sources */,
 				694281451BF1EEDE005EA77A /* ViewController.m in Sources */,
-				691764A81BF9A88300C02175 /* CustomViewController.m in Sources */,
 				694281421BF1EEDE005EA77A /* AppDelegate.m in Sources */,
 				694281721BF1EF54005EA77A /* SlideSwitchView.m in Sources */,
 				6942813F1BF1EEDE005EA77A /* main.m in Sources */,
