@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustonViewWithCollection : UIView
-
+@interface CustonViewWithCollection : UIView<UICollectionViewDelegate, UICollectionViewDataSource>
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong)NSArray *data;
++ (id)viewFromNib;
+- (void)updateData:(NSArray *)aDataArray;
 @end
