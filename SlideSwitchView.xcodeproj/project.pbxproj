@@ -18,6 +18,8 @@
 		694281721BF1EF54005EA77A /* SlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281711BF1EF54005EA77A /* SlideSwitchView.m */; };
 		69DE82511BFC47BF00DAA56B /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE82501BFC47BF00DAA56B /* CustomView.m */; };
 		69DE82531BFC47D600DAA56B /* CustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69DE82521BFC47D600DAA56B /* CustomView.xib */; };
+		69F4A1F31C4E17C800C60FE4 /* CustonCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F4A1F21C4E17C800C60FE4 /* CustonCollectionView.m */; };
+		69F4A1F51C4E181100C60FE4 /* CustomCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F4A1F41C4E181100C60FE4 /* CustomCollectionView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,9 @@
 		69DE824F1BFC47BF00DAA56B /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		69DE82501BFC47BF00DAA56B /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 		69DE82521BFC47D600DAA56B /* CustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomView.xib; sourceTree = "<group>"; };
+		69F4A1F11C4E17C800C60FE4 /* CustonCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustonCollectionView.h; sourceTree = "<group>"; };
+		69F4A1F21C4E17C800C60FE4 /* CustonCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustonCollectionView.m; sourceTree = "<group>"; };
+		69F4A1F41C4E181100C60FE4 /* CustomCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +128,9 @@
 				69DE824F1BFC47BF00DAA56B /* CustomView.h */,
 				69DE82501BFC47BF00DAA56B /* CustomView.m */,
 				69DE82521BFC47D600DAA56B /* CustomView.xib */,
+				69F4A1F11C4E17C800C60FE4 /* CustonCollectionView.h */,
+				69F4A1F21C4E17C800C60FE4 /* CustonCollectionView.m */,
+				69F4A1F41C4E181100C60FE4 /* CustomCollectionView.xib */,
 			);
 			path = SlideSwitchView;
 			sourceTree = "<group>";
@@ -260,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6942814D1BF1EEDE005EA77A /* LaunchScreen.storyboard in Resources */,
+				69F4A1F51C4E181100C60FE4 /* CustomCollectionView.xib in Resources */,
 				69DE82531BFC47D600DAA56B /* CustomView.xib in Resources */,
 				6942814A1BF1EEDE005EA77A /* Assets.xcassets in Resources */,
 				694281481BF1EEDE005EA77A /* Main.storyboard in Resources */,
@@ -287,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69F4A1F31C4E17C800C60FE4 /* CustonCollectionView.m in Sources */,
 				69DE82511BFC47BF00DAA56B /* CustomView.m in Sources */,
 				694281451BF1EEDE005EA77A /* ViewController.m in Sources */,
 				694281421BF1EEDE005EA77A /* AppDelegate.m in Sources */,
