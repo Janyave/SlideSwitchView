@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomView : UIView
-
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (nonatomic, strong)NSArray *data;
++ (id)viewFromNib;
+- (void)updateData:(NSArray *)aDataArray;
 @end

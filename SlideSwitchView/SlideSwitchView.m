@@ -5,28 +5,37 @@
 //  Created by hzzhanyawei on 15/11/10.
 //  Copyright © 2015年 hzzhanyawei. All rights reserved.
 //
+
+#import "SlideSwitchView.h"
+#import "CustomView.h"
+
+
 #define TopScrollViewY 64
 #define TopScrollViewHeight 44
 #define RootScrollViewY 108
-#define RootScrollViewHeight 460
+#define RootScrollViewHeight (self.bounds.size.height - RootScrollViewY)
 #define TopButtonMargin 16
 
-#import "SlideSwitchView.h"
-#import "CustomViewController.h"
+#define ReusedPageNum 5
+
+
 @interface SlideSwitchView() <UIScrollViewDelegate>
+//内容显示ScrollView
 @property (nonatomic, strong) UIScrollView *rootScrollView;
+//标题显示ScrollView
 @property (nonatomic, strong) UIScrollView *topScrollView;
+//滑动前ScrollView的起始Offset.x
 @property (nonatomic, assign) CGFloat userContentOffsetX;
+//选中的标题ID
 @property (nonatomic, assign) NSInteger userSelectedChannelID;
-
-
-@property (nonatomic, strong) NSMutableArray *viewArray;
-@property (nonatomic, strong) UIButton *rigthSideButton;
-
+//所有标题的个数
+@property (nonatomic, assign) NSInteger titleItemNum;
+//最小复用View个数
+@property (nonatomic, assign) NSInteger minPagerShowNum;
+//可复用View的容器
+@property (nonatomic, strong) NSMutableArray *pageArray;
+//是否内容ScrollView滑动
 @property (nonatomic, assign) BOOL isRootScrollViewScrolling;
-
-@property (nonatomic, strong) UIView *lineView;
-@property (nonatomic, assign) BOOL isUIBuild;
 
 @end
 @implementation SlideSwitchView
@@ -61,6 +70,7 @@
     }
     return self;
 }
+
 - (void)initValues
 {
     
@@ -69,19 +79,15 @@
     
     _userContentOffsetX = 0.0;
     
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    _viewArray = array;
-    //[array release];
-    
-    _isUIBuild = NO;
-    
     _userSelectedChannelID = 0;
+    
+    _pageArray = [[NSMutableArray alloc] init];
 }
 
 - (void)initTopScrollView
 {
     _topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, TopScrollViewY, self.bounds.size.width, TopScrollViewHeight)];
-    _topScrollView.tag = 10000;//不设置默认是0，会冲突。
+    _topScrollView.tag = 100000;//不设置默认是0，会冲突。
     
     _topScrollView.delegate = self;
     _topScrollView.backgroundColor = [UIColor grayColor];
@@ -100,46 +106,38 @@
     _rootScrollView.delegate = self;
     _rootScrollView.pagingEnabled = YES;//多页显示
     _rootScrollView.userInteractionEnabled = YES;//允许用户事件
-    _rootScrollView.bounces = NO;//边缘弹回
+    _rootScrollView.bounces = YES;//边缘弹回
     _rootScrollView.showsHorizontalScrollIndicator = NO;
     _rootScrollView.showsVerticalScrollIndicator = NO;
     _rootScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;//布局
     
     [_rootScrollView.panGestureRecognizer addTarget:self action:@selector(scrollHandlePan:)];
+
     [self addSubview:_rootScrollView];
 }
 
-//- (void)dealloc
-//{
-//    
-//    [super dealloc];
-//}
 
 #pragma mark -- createUI
-
-- (void)layoutSubviews
+//调整视图
+- (void)adjustView
 {
-    if (self.isUIBuild)
+    self.rootScrollView.contentSize = CGSizeMake(self.bounds.size.width * self.titleItemNum, RootScrollViewHeight);
+    //滚动到选中的视图
+    
+    [self.rootScrollView setContentOffset:CGPointMake(self.userSelectedChannelID * self.bounds.size.width, 0) animated:NO];
+    
+    
+    //调整顶部滚动视图选中按钮位置
+    UIButton *button = (UIButton *)[self.topScrollView viewWithTag: self.userSelectedChannelID];
+    [self adjustScrollViewContentX:button];
+}
+
+- (void)showPageInScrollView:(UIScrollView*) scrollView WithIdentifier:(NSInteger)aNum
+{
+    if ([self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:viewOfTab:)])
     {
-        //TODO顶部最右边更多的按键
-        
-        //self.topScrollView.frame = CGRectMake(0, 0, self.bounds.size.width, TopScrollViewHeight);
-        
-        self.rootScrollView.contentSize = CGSizeMake(self.bounds.size.width * [self.viewArray count], RootScrollViewHeight);
-        
-        for (int i = 0; i < [self.viewArray count]; i++)
-        {
-            UIViewController *listVc = self.viewArray[i];
-            listVc.view.frame = CGRectMake(0+self.rootScrollView.bounds.size.width * i, RootScrollViewY, self.rootScrollView.bounds.size.width, RootScrollViewHeight);
-        }
-        
-        //滚动到选中的视图
-        [self.rootScrollView setContentOffset:CGPointMake(self.userSelectedChannelID * self.bounds.size.width, 0) animated:NO];
-        
-        //调整顶部滚动视图选中按钮位置
-        UIButton *button = (UIButton *)[self.topScrollView viewWithTag: self.userSelectedChannelID];
-        [self adjustScrollViewContentX:button];
-        
+        UIView *viewCell = [self.slideSwitchViewDelegate slideSwitchView:self viewOfTab:aNum];
+        [viewCell setFrame:CGRectMake(scrollView.contentOffset.x, 0, self.rootScrollView.bounds.size.width, RootScrollViewHeight)];
     }
 }
 - (void)buildUI
@@ -148,20 +146,27 @@
     {
         return;
     }
-    NSInteger number = 0;
     if ([self.slideSwitchViewDelegate respondsToSelector:@selector(numberOfTab:)])
     {
-        number = [self.slideSwitchViewDelegate numberOfTab:self];
+        self.titleItemNum = [self.slideSwitchViewDelegate numberOfTab:self];
+        self.minPagerShowNum = MIN(self.titleItemNum, ReusedPageNum);
     }
-    if ([self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:viewOfTab:)])
+    //创建可重用的view
+    if ([self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchViewGetReusedView:)])
     {
-        for (int i = 0; i < number; i++)
+        
+        for (int i = 0; i < self.minPagerShowNum; i++)
         {
-            CustomViewController *viewController = [self.slideSwitchViewDelegate slideSwitchView:self viewOfTab:i];
-            [self.viewArray addObject:viewController];
-            [self.rootScrollView addSubview:viewController.view];
+            UIView *reusedView = [self.slideSwitchViewDelegate slideSwitchViewGetReusedView:self];
+            reusedView.frame = CGRectMake(0+self.rootScrollView.bounds.size.width * i, 0, self.rootScrollView.bounds.size.width, RootScrollViewHeight);
+            [self.pageArray addObject:reusedView];
+            reusedView.tag = i;
+            
+            UIView *view = [self.slideSwitchViewDelegate slideSwitchView:self viewOfTab:i];//设置内容
+            [self.rootScrollView addSubview:view];
         }
     }
+   
     //默认选中第一个
     if ([self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:didselectTab:)])
     {
@@ -169,37 +174,37 @@
     }
     
     [self buildTopNamedButtons];
-    
-    [self setIsUIBuild:YES];
-    
-    [self setNeedsLayout];
+ 
+    [self adjustView];
 }
 
+//创建标题按键
 - (void)buildTopNamedButtons
 {
-//    //顶部button区域的总长度
-//    CGFloat totalWidthOfTopScrollView = TopButtonMargin;
-    //每个button的起始区域
     CGFloat xOffset = TopButtonMargin;
-    for(int i = 0; i < [self.viewArray count]; i++)
+    for(int i = 0; i < self.titleItemNum; i++)
     {
-        CustomViewController *viewController = self.viewArray[i];
+       
+        NSString *text = nil;
+        if (self.slideSwitchViewDelegate && [self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:titleOfTab:)])
+        {
+            text = [self.slideSwitchViewDelegate slideSwitchView:self titleOfTab:i];
+        }
+        if (text == nil)
+        {
+            text = [NSString stringWithFormat:@"订阅源%d", i];
+        }
         
-        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-        //paragraph.alignment = NSLineBreakByTruncatingTail;//末尾截断
-        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName, [UIFont systemFontOfSize:17], NSParagraphStyleAttributeName, paragraph, nil];
-        CGSize textSize = [viewController.titleLabel.text boundingRectWithSize:CGSizeMake(self.bounds.size.width, TopScrollViewHeight) options:NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;
-        
-        //totalWidthOfTopScrollView += TopButtonMargin + textSize.width;
+        CGSize textSize = [text boundingRectWithSize:CGSizeMake(self.bounds.size.width, TopScrollViewHeight) options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(xOffset, 0, textSize.width, TopScrollViewHeight)];
         xOffset += TopButtonMargin + textSize.width;
         
         
-        [button setTitle:viewController.titleLabel.text forState:UIControlStateNormal];
+        [button setTitle:text forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor greenColor]];
-        button.titleLabel.font = [UIFont systemFontOfSize:17];
+        
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         if (i == 0)
@@ -213,6 +218,18 @@
         [self.topScrollView addSubview:button];
     }
     [self.topScrollView setContentSize:CGSizeMake(xOffset, TopScrollViewHeight)];
+}
+
+#pragma mark -- 重用View
+- (UIView *)getReusedPage:(NSInteger)aNum
+{
+    NSInteger key = aNum % 5;
+    if (key > ([self.pageArray count] - 1))
+    {
+        return nil;
+    }
+    UIView *view = [self.pageArray objectAtIndex:key];
+    return view;
 }
 #pragma mark -- 处理tab按键事件
 - (void)selectTopNamedButton:(UIButton *)sender
@@ -230,21 +247,18 @@
     {
         sender.selected = YES;
         
-        [UIView animateWithDuration:0.25 animations:^{
-        //设置被按下按键的UI
+        if (!self.isRootScrollViewScrolling)
+        {
+            [self.rootScrollView scrollRectToVisible:CGRectMake(sender.tag * self.bounds.size.width,0,self.rootScrollView.bounds.size.width,self.rootScrollView.bounds.size.height) animated:NO];
+            
+            [self showPageInScrollView:self.rootScrollView WithIdentifier:sender.tag];
         }
-         completion:^(BOOL finished) {
-             if (!self.isRootScrollViewScrolling)
-             {
-                 [self.rootScrollView setContentOffset:CGPointMake(sender.tag*self.bounds.size.width, 0) animated:YES];
-             }
-             self.isRootScrollViewScrolling = NO;
-             
-             if (self.slideSwitchViewDelegate && [self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:didselectTab:)])
-             {
-                 [self.slideSwitchViewDelegate slideSwitchView:self didselectTab:sender.tag];
-             }
-         }];
+        self.isRootScrollViewScrolling = NO;
+        
+        if (self.slideSwitchViewDelegate && [self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:didselectTab:)])
+        {
+            [self.slideSwitchViewDelegate slideSwitchView:self didselectTab:sender.tag];
+        }
     }
     
 }
@@ -300,7 +314,7 @@
     {
         if (self.userContentOffsetX < scrollView.contentOffset.x)
         {
-            //向左滑动，设置tab跟随
+            //向左滑动
         }
         else
         {
@@ -311,11 +325,18 @@
 //滑动结束
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView == self.rootScrollView) {
+    if (scrollView == self.rootScrollView)//底部page滑动
+    {
+        //设置标题
         self.isRootScrollViewScrolling = YES;
         int tag = (int)scrollView.contentOffset.x/self.bounds.size.width;
         UIButton *button = (UIButton *)[self.topScrollView viewWithTag:tag];
         [self selectTopNamedButton:button];
+
+        //设置View
+        [self showPageInScrollView:scrollView WithIdentifier:tag];
+
     }
+    
 }
 @end

@@ -25,6 +25,15 @@
  */
 - (void)buildUI;
 
+/*!
+ * @method 查询并返回可重用的View
+ * @abstract
+ * @discussion
+ * @param 可重用View标示
+ * @result
+ */
+- (UIView *)getReusedPage:(NSInteger)aNum;
+
 
 
 @end
@@ -43,13 +52,30 @@
 - (NSUInteger)numberOfTab:(SlideSwitchView *)view;
 
 /*!
- * @method 每个tab所属的viewController
+ * @method 获取可重用的View
+ * @abstract
+ * @discussion
+ * @param 本控件
+ * @result 可重用的View
+ */
+- (UIView *)slideSwitchViewGetReusedView:(SlideSwitchView *)view;
+/*!
+ * @method 填充view内容
  * @abstract
  * @discussion
  * @param tab索引
- * @result viewController
+ * @result View
  */
-- (CustomViewController *)slideSwitchView:(SlideSwitchView *)view viewOfTab:(NSUInteger)number;
+- (UIView *)slideSwitchView:(SlideSwitchView *)view viewOfTab:(NSUInteger)number;
+
+/*!
+ * @method 获取对应Tab的标题内容
+ * @abstract
+ * @discussion
+ * @param tab索引
+ * @result 标题内容
+ */
+- (NSString *)slideSwitchView:(SlideSwitchView *)view titleOfTab:(NSUInteger)number;
 
 @optional
 
