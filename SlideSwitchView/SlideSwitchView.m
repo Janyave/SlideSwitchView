@@ -195,15 +195,15 @@
             text = [NSString stringWithFormat:@"订阅源%d", i];
         }
         
-        CGSize textSize = [text boundingRectWithSize:CGSizeMake(self.bounds.size.width, TopScrollViewHeight) options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
-        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(xOffset, 0, textSize.width, TopScrollViewHeight)];
-        xOffset += TopButtonMargin + textSize.width;
-        
-        
         [button setTitle:text forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor greenColor]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:16]];
+        [button sizeToFit];
+        CGRect frame = button.bounds;
+        [button setFrame:CGRectMake(xOffset, 0, frame.size.width, TopScrollViewHeight)];
+        
+        xOffset += TopButtonMargin + frame.size.width;
         
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
