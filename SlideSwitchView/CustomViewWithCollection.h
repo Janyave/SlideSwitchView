@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustonViewWithCollection : UIView<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface CustomViewWithCollection : UIView<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong)NSArray *data;
 + (id)viewFromNib;

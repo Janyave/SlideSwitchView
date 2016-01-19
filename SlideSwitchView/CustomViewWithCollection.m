@@ -6,15 +6,16 @@
 //  Copyright © 2016年 hzzhanyawei. All rights reserved.
 //
 
-#import "CustonViewWithCollection.h"
+#import "CustomViewWithCollection.h"
 #import "CellViewCollectionViewCell.h"
 #import "FlowLayout.h"
 
-@implementation CustonViewWithCollection
+@implementation CustomViewWithCollection
 static NSString * const reuseIdentifier = @"CollectionCell";
 + (id)viewFromNib
 {
-    return [[[NSBundle mainBundle] loadNibNamed:@"CustomCollectionView" owner:nil options:nil] firstObject];
+    NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:@"CustomViewWithCollection" owner:nil options:nil];
+    return [viewArray firstObject];
 }
 
 - (void)awakeFromNib
@@ -22,6 +23,7 @@ static NSString * const reuseIdentifier = @"CollectionCell";
     [self.collectionView registerClass:[CellViewCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    [self.collectionView setBackgroundColor:[UIColor clearColor]];
     
     FlowLayout *layout = [[FlowLayout alloc] init];
     [self.collectionView setCollectionViewLayout: layout];

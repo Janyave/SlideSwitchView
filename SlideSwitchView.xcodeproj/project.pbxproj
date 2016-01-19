@@ -18,11 +18,11 @@
 		694281721BF1EF54005EA77A /* SlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 694281711BF1EF54005EA77A /* SlideSwitchView.m */; };
 		69DE82511BFC47BF00DAA56B /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE82501BFC47BF00DAA56B /* CustomView.m */; };
 		69DE82531BFC47D600DAA56B /* CustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69DE82521BFC47D600DAA56B /* CustomView.xib */; };
-		69F4A1F31C4E17C800C60FE4 /* CustonViewWithCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F4A1F21C4E17C800C60FE4 /* CustonViewWithCollection.m */; };
-		69F4A1F51C4E181100C60FE4 /* CustomCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F4A1F41C4E181100C60FE4 /* CustomCollectionView.xib */; };
+		69F4A1F31C4E17C800C60FE4 /* CustomViewWithCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F4A1F21C4E17C800C60FE4 /* CustomViewWithCollection.m */; };
 		69F4A1FB1C4E204400C60FE4 /* CellViewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F4A1F71C4E204400C60FE4 /* CellViewCollectionViewCell.m */; };
 		69F4A1FC1C4E204400C60FE4 /* CellViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F4A1F81C4E204400C60FE4 /* CellViewCollectionViewCell.xib */; };
 		69F4A1FD1C4E204400C60FE4 /* FlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F4A1FA1C4E204400C60FE4 /* FlowLayout.m */; };
+		69F4A1FF1C4E261500C60FE4 /* CustomViewWithCollection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F4A1FE1C4E261500C60FE4 /* CustomViewWithCollection.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,14 +64,14 @@
 		69DE824F1BFC47BF00DAA56B /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		69DE82501BFC47BF00DAA56B /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 		69DE82521BFC47D600DAA56B /* CustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomView.xib; sourceTree = "<group>"; };
-		69F4A1F11C4E17C800C60FE4 /* CustonViewWithCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustonViewWithCollection.h; sourceTree = "<group>"; };
-		69F4A1F21C4E17C800C60FE4 /* CustonViewWithCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustonViewWithCollection.m; sourceTree = "<group>"; };
-		69F4A1F41C4E181100C60FE4 /* CustomCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionView.xib; sourceTree = "<group>"; };
+		69F4A1F11C4E17C800C60FE4 /* CustomViewWithCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewWithCollection.h; sourceTree = "<group>"; };
+		69F4A1F21C4E17C800C60FE4 /* CustomViewWithCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewWithCollection.m; sourceTree = "<group>"; };
 		69F4A1F61C4E204400C60FE4 /* CellViewCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewCollectionViewCell.h; sourceTree = "<group>"; };
 		69F4A1F71C4E204400C60FE4 /* CellViewCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellViewCollectionViewCell.m; sourceTree = "<group>"; };
 		69F4A1F81C4E204400C60FE4 /* CellViewCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellViewCollectionViewCell.xib; sourceTree = "<group>"; };
 		69F4A1F91C4E204400C60FE4 /* FlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowLayout.h; sourceTree = "<group>"; };
 		69F4A1FA1C4E204400C60FE4 /* FlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowLayout.m; sourceTree = "<group>"; };
+		69F4A1FE1C4E261500C60FE4 /* CustomViewWithCollection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewWithCollection.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,9 +136,9 @@
 				69DE824F1BFC47BF00DAA56B /* CustomView.h */,
 				69DE82501BFC47BF00DAA56B /* CustomView.m */,
 				69DE82521BFC47D600DAA56B /* CustomView.xib */,
-				69F4A1F11C4E17C800C60FE4 /* CustonViewWithCollection.h */,
-				69F4A1F21C4E17C800C60FE4 /* CustonViewWithCollection.m */,
-				69F4A1F41C4E181100C60FE4 /* CustomCollectionView.xib */,
+				69F4A1F11C4E17C800C60FE4 /* CustomViewWithCollection.h */,
+				69F4A1F21C4E17C800C60FE4 /* CustomViewWithCollection.m */,
+				69F4A1FE1C4E261500C60FE4 /* CustomViewWithCollection.xib */,
 				69F4A1F61C4E204400C60FE4 /* CellViewCollectionViewCell.h */,
 				69F4A1F71C4E204400C60FE4 /* CellViewCollectionViewCell.m */,
 				69F4A1F81C4E204400C60FE4 /* CellViewCollectionViewCell.xib */,
@@ -282,10 +282,10 @@
 			files = (
 				6942814D1BF1EEDE005EA77A /* LaunchScreen.storyboard in Resources */,
 				69F4A1FC1C4E204400C60FE4 /* CellViewCollectionViewCell.xib in Resources */,
-				69F4A1F51C4E181100C60FE4 /* CustomCollectionView.xib in Resources */,
 				69DE82531BFC47D600DAA56B /* CustomView.xib in Resources */,
 				6942814A1BF1EEDE005EA77A /* Assets.xcassets in Resources */,
 				694281481BF1EEDE005EA77A /* Main.storyboard in Resources */,
+				69F4A1FF1C4E261500C60FE4 /* CustomViewWithCollection.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69F4A1FB1C4E204400C60FE4 /* CellViewCollectionViewCell.m in Sources */,
-				69F4A1F31C4E17C800C60FE4 /* CustonViewWithCollection.m in Sources */,
+				69F4A1F31C4E17C800C60FE4 /* CustomViewWithCollection.m in Sources */,
 				69DE82511BFC47BF00DAA56B /* CustomView.m in Sources */,
 				694281451BF1EEDE005EA77A /* ViewController.m in Sources */,
 				694281421BF1EEDE005EA77A /* AppDelegate.m in Sources */,

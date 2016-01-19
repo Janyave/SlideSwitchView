@@ -10,6 +10,7 @@
 #import "SlideSwitchView.h"
 
 #import "CustomView.h"
+#import "CustomViewWithCollection.h"
 
 @interface ViewController ()<SlideSwitchViewDelegate>
 @property (nonatomic, strong) IBOutlet SlideSwitchView *switchView;
@@ -59,7 +60,7 @@
 
 - (UIView *)slideSwitchViewGetReusedView:(SlideSwitchView *)view
 {
-    return [CustomView viewFromNib];
+    return [CustomViewWithCollection viewFromNib];//[CustomView viewFromNib];
 }
 
 - (NSString *)slideSwitchView:(SlideSwitchView *)view titleOfTab:(NSUInteger)number
@@ -70,12 +71,16 @@
 - (UIView *)slideSwitchView:(SlideSwitchView *)view viewOfTab:(NSUInteger)number
 {
     //如果是最近阅读或者离线阅读根据其位置number来获取特定的（非重用）cell
-    
-    CustomView *cell = (CustomView*)[view getReusedPage:number];
+    CustomViewWithCollection *cell = (CustomViewWithCollection *)[view getReusedPage:number];
     if (cell == nil)
     {
-        cell = [CustomView viewFromNib];
+        cell = [CustomViewWithCollection viewFromNib];
     }
+//    CustomView *cell = (CustomView*)[view getReusedPage:number];
+//    if (cell == nil)
+//    {
+//        cell = [CustomView viewFromNib];
+//    }
     
     //填充cell的内容
     //模拟数据
