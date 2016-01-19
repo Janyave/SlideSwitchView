@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustonCollectionView : UICollectionView
+@interface CustonViewWithCollection : UIView
 
 @end

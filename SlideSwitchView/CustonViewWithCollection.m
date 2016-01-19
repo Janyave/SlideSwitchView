@@ -6,9 +6,9 @@
 //  Copyright © 2016年 hzzhanyawei. All rights reserved.
 //
 
-#import "CustonCollectionView.h"
+#import "CustonViewWithCollection.h"
 
-@implementation CustonCollectionView
+@implementation CustonViewWithCollection
 
 
 @end
