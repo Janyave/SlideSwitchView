@@ -15,7 +15,7 @@
 #define RootScrollViewY 108
 #define RootScrollViewHeight (self.bounds.size.height - RootScrollViewY)
 #define TopButtonMargin 16
-
+#define ViewFrameWidth [UIScreen mainScreen].bounds.size.width
 #define ReusedPageNum 5
 
 
@@ -310,15 +310,26 @@
 //滑动过程
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView == self.rootScrollView)
+    if (scrollView == self.rootScrollView && self.userContentOffsetX != 0 )
     {
         if (self.userContentOffsetX < scrollView.contentOffset.x)
         {
-            //向左滑动
+            //向右滑动
+            CGFloat scale = ABS(scrollView.contentOffset.x/ViewFrameWidth);
+            NSInteger leftIndex = (NSInteger)scale;
+            UIButton *zoomOutButton = (UIButton *)[self.topScrollView viewWithTag:leftIndex];
+            UIButton *zoomInButtom = (UIButton *)[self.topScrollView viewWithTag:leftIndex + 1];
+            [self animationScrollingScale:(scale - leftIndex) zoomOutButton:zoomOutButton zoomInButtom:zoomInButtom];
         }
         else
         {
-            //向右滑动
+            //向左滑动
+            CGFloat scale = ABS(scrollView.contentOffset.x/ViewFrameWidth);
+            NSInteger leftIndex = (NSInteger)scale;
+            UIButton *zoomOutButton = (UIButton *)[self.topScrollView viewWithTag:leftIndex + 1];
+            UIButton *zoomInButtom = (UIButton *)[self.topScrollView viewWithTag:leftIndex];
+            [self animationScrollingScale:(leftIndex + 1 - scale) zoomOutButton:zoomOutButton zoomInButtom:zoomInButtom];
+
         }
     }
 }
@@ -335,8 +346,50 @@
 
         //设置View
         [self showPageInScrollView:scrollView WithIdentifier:tag];
+        
+        int fromTag = (int)self.userContentOffsetX/ViewFrameWidth;
+        if (scrollView.contentOffset.x > self.userContentOffsetX)
+        {
+            for (int i = fromTag; i < tag; i++)
+            {
+                UIButton *changedButton = (UIButton *)[self.topScrollView viewWithTag:i];
+                [self buttonBackStatus:changedButton];
+            }
+        }
+        else
+        {
+            for (int i = fromTag; i > tag; i--)
+            {
+                UIButton *changedButton = (UIButton *)[self.topScrollView viewWithTag:i];
+                [self buttonBackStatus:changedButton];
+            }
+        }
 
     }
     
 }
+#pragma makr -- 滑动过程动画
+//item 状态恢复
+- (void)buttonBackStatus:(UIButton *)aButton
+{
+//    aButton.transform = CGAffineTransformMakeScale(1, 1);
+    aButton.titleLabel.textColor = [UIColor blackColor];
+}
+//滑动动画
+- (void)animationScrollingScale:(CGFloat)scale zoomOutButton:(UIButton *)zoButton zoomInButtom:(UIButton *)ziButton
+{
+//    CGFloat ziKpi = scale * 0.1 + 1;//最终放大到1.1
+//    CGFloat zoKpi = (0.1 - scale * 0.1) + 1;//最终缩小到1
+//    ziButton.transform = CGAffineTransformMakeScale(ziKpi, ziKpi);
+//    zoButton.transform = CGAffineTransformMakeScale(zoKpi, zoKpi);
+    
+    //red   255, 0, 0
+    //black 0,   0, 0
+//    CGFloat offsetR = 255 * scale;//255 -0
+//    CGFloat offsetG = 0 * scale;//0-0
+//    CGFloat offsetB = 0 * scale;//0-0
+    [ziButton.titleLabel setTextColor:[UIColor colorWithRed:scale green:0 blue:0 alpha:1]];
+    [zoButton.titleLabel setTextColor:[UIColor colorWithRed:(1 - scale) green:0 blue:0 alpha:1]];
+}
+
 @end
